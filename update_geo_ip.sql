@@ -12,11 +12,11 @@ LANGUAGE js AS """
   return {start_IP: beg, end_IP: end};
 """; 
 create or replace table `opscenter.networktest.GeoIP_ISP_Range` as (
-SELECT network, IP_range.*,isp,asn,aso
+SELECT network, IP_range.*,NET.SAFE_IP_FROM_STRING(IP_range.start_IP) as start_ip_byte,NET.SAFE_IP_FROM_STRING(IP_range.end_ip) as end_ip_byte,isp,asn,aso
 FROM `opscenter.networktest.GeoIP_ISP`,
 UNNEST([cidrToRange(network)]) IP_range );
 
-create or replace table `opscenter.networktest.GeoIP_ISP_Range` as (
-SELECT network, IP_range.*,country_name, country_iso_code
-FROM `opscenter.networktest.GeoIP_ISP`,
+create or replace table `opscenter.networktest.GeoIP_Country_Range` as (
+SELECT network, IP_range.*,NET.SAFE_IP_FROM_STRING(IP_range.start_IP) as start_ip_byte,NET.SAFE_IP_FROM_STRING(IP_range.end_ip) as end_ip_byte,country_name, country_iso_code
+FROM `opscenter.networktest.GeoIP_Country`,
 UNNEST([cidrToRange(network)]) IP_range );
