@@ -26,7 +26,7 @@ WHERE
   AND nt.Average != 0
   and nt.Average > 300
 )
-select country_iso_code,isp,asn,count(1), avg(Average)
+select country_iso_code,isp,asn,count(1) as diag_counts, avg(Average) as ave_latency
 from a group by country_iso_code,isp, asn
   # group by nt.UserID
   # AND nt.Average < 1000
