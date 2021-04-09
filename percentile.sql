@@ -26,3 +26,5 @@ WHERE
     AND nt.Time <= "2021-03-31 14:30:00"
     AND nt.Average != 0
     AND nt.Average < 1000
+
+

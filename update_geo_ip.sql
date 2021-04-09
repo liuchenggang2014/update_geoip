@@ -11,7 +11,9 @@ end_IP STRING > LANGUAGE js AS """
   i32[0]  = (sub[0]<<24) + (sub[1]<<16) + (sub[2]<<8) + (sub[3]) + off;
   var end = Array.apply([],new Uint8Array(buf)).reverse().join('.');
   return {start_IP: beg, end_IP: end};
-""";create
+""";
+
+create
 or replace table `opscenter.networktest.GeoIP_ISP_Range` as (
     SELECT
         network,
@@ -24,7 +26,9 @@ or replace table `opscenter.networktest.GeoIP_ISP_Range` as (
     FROM
         `opscenter.networktest.GeoIP_ISP`,
         UNNEST([cidrToRange(network)]) IP_range
-);create
+);
+
+create
 or replace table `opscenter.networktest.GeoIP_Country_Range` as (
     SELECT
         network,
